@@ -27,6 +27,14 @@ import JobRoute from "./routes/jobRoutes.js";
 app.use("/api/v1/", UserRoute);
 app.use("/api/v1/", JobRoute);
 
+app.get("/", (req, res)=>{
+    res.send(
+      `<h1>this is the frontend url <a href="${process.env.FRONTEND_URL}">this</a></h1>`
+    );
+})
+
+
 export default app;
+
 
 app.use(ErrorMiddleware);
