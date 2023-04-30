@@ -31,12 +31,19 @@ export const createJob = catchAsyncError(async (req, res, next) => {
 
 //get all the jobs
 export const getAllJobs = catchAsyncError(async (req, res, next) => {
-
-    const jobs = await Job.find();
-
+    const keyword = req.query.keyword || "";
+    const category = req.query.category?.split(",") || [];
+    console.log(category);
+    let job = await Job.find({
+      position: {
+        $regex: keyword,
+        $options: "i",
+      },
+    }).sort({ createdAt: -1 });
+    
   res.status(200).json({
     success: true,
-    jobs
+    job
   });
 });
 
